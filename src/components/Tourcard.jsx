@@ -1,19 +1,26 @@
-import React from 'react';
+import React, {useState} from "react";
 
-const TourCard = ({ id, name, info, image, price, onRemove }) => {
-  return (
-    <div className="tour-card">
-      <img src={image} alt={name} className="tour-image" />
-      <div className="tour-details">
-        <h2>{name}</h2>
-        <p>{info}</p>
-        <h4>${price}</h4>
-        <button onClick={() => onRemove(id)} className="btn-not-interested">
-          Not Interested
-        </button>
-      </div>
-    </div>
-  );
-};
+const TourCard = ({id, name, info, price, image}) => {
+    const [readMore, setReadMore] = useState(false);
+
+    return (
+        <article className="tour-card">
+            <h3>{name}</h3>
+            <h5>{info}</h5>
+            <p>
+                {readMore ? info : `${info.substring(0, 80)}...`}
+                <button onClick={() => setReadMore(!readMore)}>
+                    {readMore ? "show less" : "read more"}
+                </button>
+            </p>
+            <div className="tour-info">
+                <h4>${price}</h4>
+                <button className="delete-btn">not interested</button>
+            </div>
+            <img src={image} alt={name} />
+
+        </article>    
+    )
+}
 
 export default TourCard;
